@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ขับเป็น — เรียนขับรถออนไลน์ มั่นใจทุกเส้นทาง</title>
+<meta name="description" content="ขับเป็น โรงเรียนสอนขับรถออนไลน์ หลักสูตรจากศูนย์ถึงขับได้จริง สอนโดยครูมืออาชีพ เน้นความปลอดภัยและความมั่นใจบนถนนทุกสภาพ">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800;900&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.460.0"></script>
+<style>
+  :root{
+    --background:var(--background)fff;
+    --card:var(--background)fff;
+    --bg-accent:#0B1F3A;
+    --foreground:#0B1F3A;
+    --muted:#5C6B85;
+    --border:#D9E1EE;
+    --primary:#0B1F3A;
+    --secondary:#00E5FF;
+    --accent:#00E5FF;
+
+    --font-heading:'Kanit', sans-serif;
+    --font-body:'Sarabun', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--font-body);
+    background:var(--background);
+    color:var(--foreground);
+    line-height:1.8;
+    overflow-x:hidden;
+    word-break:break-word;
+    overflow-wrap:break-word;
+    width:100%;
+  }
+  img{max-width:100%;height:auto;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  section{position:relative;}
+  h1,h2,h3,h4{
+    font-family:var(--font-heading);
+    line-height:1.5;
+    font-weight:800;
+  }
+  .container{
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  .eyebrow{
+    font-family:var(--font-heading);
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    color:var(--accent);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-weight:600;
+    padding-top:2px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:26px;height:2px;
+    background:var(--accent);
+    display:inline-block;
+  }
+
+  /* ===== NAVBAR ===== */
+  header{
+    position:fixed;top:0;left:0;right:0;
+    z-index:1000;
+    padding:18px 0;
+    transition:all 0.35s ease-out;
+    background:transparent;
+  }
+  header.scrolled{
+    background:rgba(11,31,58,0.92);
+    backdrop-filter:blur(10px);
+    padding:12px 0;
+    box-shadow:0 8px 30px rgba(0,0,0,0.25);
+  }
+  .navwrap{
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{
+    font-family:var(--font-heading);
+    font-weight:900;
+    font-size:1.5rem;
+    color:var(--background);
+    letter-spacing:0.02em;
+    display:flex;
+    align-items:baseline;
+    gap:2px;
+  }
+  .logo span{color:var(--accent);}
+  nav.desktop-nav{display:none;}
+  nav.desktop-nav ul{display:flex;gap:32px;align-items:center;}
+  nav.desktop-nav a{
+    color:var(--background);
+    font-size:0.95rem;
+    font-weight:500;
+    padding:10px 2px;
+    position:relative;
+    transition:color .3s;
+  }
+  nav.desktop-nav a:hover{color:var(--accent);}
+  .nav-cta{
+    display:none;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:0.9em 1.7em;
+    border-radius:100px;
+    font-family:var(--font-heading);
+    font-weight:600;
+    font-size:0.98rem;
+    border:2px solid transparent;
+    cursor:pointer;
+    transition:transform .3s ease-out, box-shadow .3s ease-out, background .3s, color .3s;
+    min-height:44px;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--accent);
+    color:#04141f;
+    box-shadow:0 0 0 rgba(0,229,255,0.5);
+  }
+  .btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 26px rgba(0,229,255,0.45);
+  }
+  .btn-outline{
+    background:transparent;
+    color:var(--background);
+    border-color:rgba(255,255,255,0.5);
+  }
+  .btn-outline:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+    transform:translateY(-2px);
+  }
+  .btn-dark{
+    background:var(--primary);
+    color:var(--background);
+  }
+  .btn-dark:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 26px rgba(11,31,58,0.35);
+  }
+
+  .hamburger{
+    width:44px;height:44px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,0.1);
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,0.25);
+    color:var(--background);
+  }
+
+  .mobile-menu{
+    position:fixed;top:0;right:0;
+    width:78%;max-width:340px;height:100%;
+    background:var(--primary);
+    z-index:1100;
+    transform:translateX(100%);
+    transition:transform .4s cubic-bezier(.4,0,.2,1);
+    padding:28px 24px;
+    display:flex;flex-direction:column;
+    gap:8px;
+    box-shadow:-10px 0 40px rgba(0,0,0,0.3);
+  }
+  .mobile-menu.open{transform:translateX(0);}
+  .mobile-menu-header{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:24px;
+  }
+  .mobile-menu a{
+    color:var(--background);
+    font-size:1.1rem;
+    font-weight:500;
+    padding:16px 4px;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+  }
+  .mobile-menu .btn{margin-top:20px;}
+  .menu-close{
+    width:40px;height:40px;border-radius:50%;
+    background:rgba(255,255,255,0.1);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--background);
+  }
+  .overlay{
+    position:fixed;inset:0;background:rgba(0,0,0,0.5);
+    z-index:1050;opacity:0;pointer-events:none;transition:opacity .3s;
+  }
+  .overlay.show{opacity:1;pointer-events:auto;}
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    background:var(--primary);
+    overflow:hidden;
+    display:flex;
+    align-items:flex-end;
+  }
+  .hero-media{
+    position:absolute;inset:0;
+    z-index:1;
+  }
+  .hero-media img{
+    width:100%;height:100%;object-fit:cover;
+    filter:saturate(1.05) brightness(0.75);
+    animation:slowzoom 18s ease-in-out infinite alternate;
+  }
+  @keyframes slowzoom{
+    from{transform:scale(1);}
+    to{transform:scale(1.12);}
+  }
+  .hero-media::after{
+    content:'';
+    position:absolute;inset:0;
+    background:
+      linear-gradient(180deg, rgba(11,31,58,0.55) 0%, rgba(11,31,58,0.35) 35%, rgba(11,31,58,0.92) 92%),
+      linear-gradient(90deg, rgba(11,31,58,0.95) 0%, rgba(11,31,58,0.15) 55%, rgba(11,31,58,0.05) 100%);
+  }
+  .hud-lines{
+    position:absolute;inset:0;z-index:2;
+    pointer-events:none;
+    opacity:0.5;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.07) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:linear-gradient(180deg, black, transparent 70%);
+  }
+  .hero-inner{
+    position:relative;z-index:3;
+    width:100%;
+    padding:150px 0 60px;
+  }
+  .hero-tag{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(0,229,255,0.1);
+    border:1px solid rgba(0,229,255,0.4);
+    color:var(--accent);
+    padding:8px 16px;
+    border-radius:100px;
+    font-size:0.82rem;
+    font-weight:600;
+    letter-spacing:0.04em;
+    margin-bottom:24px;
+    backdrop-filter:blur(6px);
+  }
+  .hero h1{
+    font-family:var(--font-heading);
+    color:var(--background);
+    text-transform:uppercase;
+    font-weight:900;
+    font-size:clamp(2.6rem, 11vw, 7.2rem);
+    line-height:1.02;
+    letter-spacing:-0.01em;
+    padding-top:0.2em;
+    margin-bottom:24px;
+    max-width:16ch;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--accent);
+    -webkit-text-stroke:0px;
+  }
+  .hero p.sub{
+    color:rgba(255,255,255,0.82);
+    font-size:1.15rem;
+    max-width:520px;
+    margin-bottom:36px;
+  }
+  .hero-ctas{
+    display:flex;flex-wrap:wrap;gap:16px;
+    margin-bottom:56px;
+  }
+  .hero-stats{
+    display:flex;flex-wrap:wrap;
+    gap:0;
+    border-top:1px solid rgba(255,255,255,0.2);
+    padding-top:28px;
+    max-width:720px;
+  }
+  .hero-stats .stat{
+    padding-right:40px;margin-right:40px;
+    border-right:1px solid rgba(255,255,255,0.2);
+  }
+  .hero-stats .stat:last-child{border-right:none;margin-right:0;padding-right:0;}
+  .hero-stats .num{
+    font-family:var(--font-heading);
+    color:var(--background);
+    font-size:2.1rem;
+    font-weight:800;
+    display:flex;align-items:baseline;gap:2px;
+  }
+  .hero-stats .num span{color:var(--accent);font-size:1.3rem;}
+  .hero-stats .label{
+    color:rgba(255,255,255,0.6);
+    font-size:0.85rem;
+  }
+
+  .scroll-cue{
+    position:absolute;right:24px;bottom:24px;z-index:3;
+    display:none;
+    color:rgba(255,255,255,0.6);
+    writing-mode:vertical-rl;
+    font-size:0.8rem;
+    letter-spacing:0.2em;
+    align-items:center;gap:10px;
+    text-transform:uppercase;
+    font-family:var(--font-heading);
+  }
+  .scroll-cue::after{
+    content:'';
+    width:1px;height:60px;
+    background:linear-gradient(var(--accent), transparent);
+    display:block;
+  }
+
+  /* reveal anim */
+  .reveal{
+    opacity:0;
+    transform:translateY(36px);
+    transition:opacity .7s ease-out, transform .7s ease-out;
+  }
+  .reveal.in{opacity:1;transform:translateY(0);}
+  .reveal-scale{opacity:0;transform:scale(0.92);transition:opacity .7s ease-out, transform .7s ease-out;}
+  .reveal-scale.in{opacity:1;transform:scale(1);}
+
+  /* ===== MARQUEE STRIP ===== */
+  .marquee-strip{
+    background:var(--primary);
+    overflow:hidden;
+    padding:16px 0;
+    border-top:1px solid rgba(255,255,255,0.1);
+    border-bottom:1px solid rgba(255,255,255,0.1);
+  }
+  .marquee-track{
+    display:flex;gap:48px;
+    white-space:nowrap;
+    animation:marquee 22s linear infinite;
+    width:max-content;
+  }
+  @keyframes marquee{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  .marquee-track span{
+    font-family:var(--font-heading);
+    font-weight:700;
+    font-size:1rem;
+    color:rgba(255,255,255,0.55);
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    display:inline-flex;align-items:center;gap:16px;
+  }
+  .marquee-track span i{color:var(--accent);width:16px;height:16px;}
+
+  /* ===== SECTION HEADERS ===== */
+  .sec-head{
+    max-width:640px;
+    margin-bottom:56px;
+  }
+  .sec-head h2{
+    font-size:clamp(2rem, 5vw, 3.2rem);
+    text-transform:uppercase;
+    margin-top:14px;
+    padding-top:0.15em;
+  }
+  .sec-head p{
+    color:var(--muted);
+    font-size:1.05rem;
+    margin-top:16px;
+    max-width:52ch;
+  }
+
+  /* ===== ABOUT / SPLIT ===== */
+  .about{
+    padding:110px 0;
+    background:var(--background);
+  }
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:48px;
+    align-items:center;
+  }
+  .about-media{
+    position:relative;
+  }
+  .about-media .frame{
+    position:relative;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(11,31,58,0.3);
+  }
+  .about-media .frame img{
+    width:100%;height:380px;object-fit:cover;
+  }
+  .about-media .badge{
+    position:absolute;
+    bottom:-24px;left:-16px;
+    background:var(--primary);
+    color:var(--background);
+    padding:20px 24px;
+    border-radius:16px;
+    box-shadow:0 20px 40px -10px rgba(11,31,58,0.4);
+    display:flex;align-items:center;gap:14px;
+    max-width:260px;
+  }
+  .about-media .badge i{color:var(--accent);width:30px;height:30px;flex-shrink:0;}
+  .about-media .badge strong{
+    font-family:var(--font-heading);
+    display:block;font-size:1.05rem;
+  }
+  .about-media .badge small{color:rgba(255,255,255,0.65);font-size:0.82rem;}
+
+  .about-text .eyebrow{color:var(--primary);}
+  .about-text .eyebrow::before{background:var(--primary);}
+  .about-text h2{
+    color:var(--foreground);
+    font-size:clamp(2rem,5.5vw,2.8rem);
+    text-transform:uppercase;
+    margin:16px 0 20px;
+    padding-top:0.15em;
+  }
+  .about-text p{color:var(--muted);margin-bottom:16px;font-size:1.02rem;}
+  .about-points{margin-top:28px;display:flex;flex-direction:column;gap:16px;}
+  .about-points .pt{
+    display:flex;gap:14px;align-items:flex-start;
+  }
+  .about-points .pt-ic{
+    width:38px;height:38px;border-radius:10px;
+    background:var(--bg-accent);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .about-points .pt-ic i{color:var(--accent);width:18px;height:18px;}
+  .about-points strong{font-family:var(--font-heading);font-weight:600;font-size:1.02rem;}
+  .about-points p{margin:2px 0 0;font-size:0.95rem;color:var(--muted);}
+
+  /* ===== COURSE STEPS (numbered, alternating diagonal) ===== */
+  .steps{
+    padding:110px 0;
+    background:var(--bg-accent);
+    clip-path:polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%);
+    margin:60px 0;
+  }
+  .steps .sec-head h2, .steps .sec-head .eyebrow{color:var(--background);}
+  .steps .sec-head .eyebrow::before{background:var(--accent);}
+  .steps .sec-head p{color:rgba(255,255,255,0.65);}
+  .step-list{display:flex;flex-direction:column;gap:0;}
+  .step-row{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:20px;
+    padding:32px 0;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+    align-items:flex-start;
+  }
+  .step-row:last-child{border-bottom:none;}
+  .step-num{
+    font-family:var(--font-heading);
+    font-size:3rem;
+    font-weight:800;
+    color:var(--accent);
+    line-height:1;
+    min-width:70px;
+  }
+  .step-body h3{
+    color:var(--background);
+    font-size:1.35rem;
+    text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  .step-body p{color:rgba(255,255,255,0.65);max-width:60ch;}
+  .step-row:hover .step-num{color:var(--background);transition:color .3s;}
+  .step-row:hover{background:rgba(255,255,255,0.03);}
+  .step-row{transition:background .3s;}
+
+  /* ===== CURRICULUM TABS ===== */
+  .curriculum{padding:110px 0;background:var(--background);}
+  .tabs-nav{
+    display:flex;gap:8px;flex-wrap:wrap;
+    margin-bottom:36px;
+    border-bottom:2px solid var(--border);
+    padding-bottom:0;
+  }
+  .tab-btn{
+    padding:14px 20px;
+    font-family:var(--font-heading);
+    font-weight:600;
+    font-size:0.95rem;
+    color:var(--muted);
+    border-bottom:3px solid transparent;
+    margin-bottom:-2px;
+    cursor:pointer;
+    transition:color .25s;
+    background:none;border-top:none;border-left:none;border-right:none;
+  }
+  .tab-btn.active{color:var(--primary);border-bottom-color:var(--accent);}
+  .tab-panels{position:relative;}
+  .tab-panel{
+    display:none;
+    grid-template-columns:1fr;
+    gap:32px;
+  }
+  .tab-panel.active{display:grid;}
+  .tab-panel img{border-radius:18px;height:280px;object-fit:cover;}
+  .tab-info h3{
+    font-size:1.6rem;text-transform:uppercase;margin-bottom:14px;color:var(--foreground);
+  }
+  .tab-info p{color:var(--muted);margin-bottom:18px;}
+  .tab-info ul{display:flex;flex-direction:column;gap:12px;}
+  .tab-info li{
+    display:flex;gap:10px;align-items:center;
+    color:var(--foreground);font-weight:500;font-size:0.98rem;
+  }
+  .tab-info li i{color:var(--accent);width:18px;height:18px;flex-shrink:0;}
+
+  /* ===== PRICING ===== */
+  .pricing{padding:110px 0;background:var(--bg-accent);position:relative;}
+  .pricing::before{
+    content:'';
+    position:absolute;top:0;left:0;right:0;height:1px;
+  }
+  .pricing .sec-head .eyebrow, .pricing .sec-head h2{color:var(--background);}
+  .pricing .sec-head .eyebrow::before{background:var(--accent);}
+  .pricing .sec-head p{color:rgba(255,255,255,0.65);}
+  .price-grid{
+    display:grid;grid-template-columns:1fr;gap:24px;
+  }
+  .price-card{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:20px;
+    padding:36px 30px;
+    display:flex;flex-direction:column;
+    transition:transform .35s ease-out, box-shadow .35s ease-out, border-color .35s;
+  }
+  .price-card:hover{
+    transform:translateY(-8px);
+    border-color:var(--accent);
+    box-shadow:0 24px 50px -20px rgba(0,229,255,0.25);
+  }
+  .price-card.featured{
+    background:linear-gradient(160deg, rgba(0,229,255,0.12), rgba(255,255,255,0.03));
+    border-color:var(--accent);
+    position:relative;
+  }
+  .price-tag{
+    position:absolute;top:-14px;right:24px;
+    background:var(--accent);color:#04141f;
+    font-family:var(--font-heading);font-weight:700;
+    font-size:0.8rem;padding:6px 14px;border-radius:100px;
+  }
+  .price-card h3{color:var(--background);font-size:1.3rem;text-transform:uppercase;margin-bottom:6px;}
+  .price-card .price-desc{color:rgba(255,255,255,0.55);font-size:0.92rem;margin-bottom:20px;}
+  .price-amount{
+    font-family:var(--font-heading);
+    font-size:2.6rem;font-weight:800;color:var(--background);
+    margin-bottom:4px;
+  }
+  .price-amount span{font-size:1rem;color:rgba(255,255,255,0.5);font-weight:400;}
+  .price-card ul{margin:24px 0 28px;display:flex;flex-direction:column;gap:12px;flex-grow:1;}
+  .price-card li{
+    display:flex;gap:10px;align-items:flex-start;
+    color:rgba(255,255,255,0.8);font-size:0.94rem;
+  }
+  .price-card li i{color:var(--accent);width:17px;height:17px;flex-shrink:0;margin-top:3px;}
+
+  /* ===== TESTIMONIALS ===== */
+  .testimonials{padding:110px 0;background:var(--background);overflow:hidden;}
+  .test-track{
+    display:flex;gap:24px;overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    padding-bottom:12px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .test-track::-webkit-scrollbar{height:6px;}
+  .test-track::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px;}
+  .test-card{
+    scroll-snap-align:start;
+    min-width:300px;max-width:340px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:28px;
+    flex-shrink:0;
+    transition:box-shadow .3s, transform .3s;
+  }
+  .test-card:hover{box-shadow:0 24px 50px -25px rgba(11,31,58,0.3);transform:translateY(-6px);}
+  .test-stars{display:flex;gap:4px;color:var(--accent);margin-bottom:16px;}
+  .test-stars i{width:16px;height:16px;fill:var(--accent);}
+  .test-card p{color:var(--foreground);font-size:0.98rem;margin-bottom:20px;}
+  .test-person{display:flex;align-items:center;gap:12px;}
+  .test-person img{width:48px;height:48px;border-radius:50%;object-fit:cover;}
+  .test-person strong{font-family:var(--font-heading);font-size:0.95rem;display:block;}
+  .test-person span{color:var(--muted);font-size:0.85rem;}
+
+  /* ===== FAQ ===== */
+  .faq{padding:110px 0;background:var(--bg-accent);}
+  .faq .sec-head .eyebrow, .faq .sec-head h2{color:var(--background);}
+  .faq .sec-head .eyebrow::before{background:var(--accent);}
+  .faq .sec-head p{color:rgba(255,255,255,0.65);}
+  .faq-list{display:flex;flex-direction:column;gap:14px;max-width:820px;}
+  .faq-item{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:14px;
+    overflow:visible;
+  }
+  .faq-q{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:20px 22px;
+    cursor:pointer;
+    color:var(--background);font-family:var(--font-heading);font-weight:500;font-size:1.02rem;
+    gap:16px;
+  }
+  .faq-q i{color:var(--accent);flex-shrink:0;transition:transform .3s;}
+  .faq-item.open .faq-q i{transform:rotate(45deg);}
+  .faq-a{
+    max-height:0;overflow:hidden;
+    transition:max-height .35s ease-out;
+    padding:0 22px;
+  }
+  .faq-item.open .faq-a{max-height:300px;padding-bottom:20px;}
+  .faq-a p{color:rgba(255,255,255,0.65);font-size:0.96rem;}
+
+  /* ===== CONTACT / CTA ===== */
+  .cta-final{
+    padding:110px 0 130px;
+    background:var(--primary);
+    position:relative;
+    overflow:hidden;
+  }
+  .cta-final .hud-lines{opacity:0.35;}
+  .cta-final-inner{
+    position:relative;z-index:2;
+    text-align:left;
+    max-width:720px;
+  }
+  .cta-final h2{
+    color:var(--background);font-size:clamp(2.2rem,7vw,4rem);
+    text-transform:uppercase;margin-bottom:20px;padding-top:0.15em;
+  }
+  .cta-final p{color:rgba(255,255,255,0.7);font-size:1.1rem;margin-bottom:36px;max-width:540px;}
+  .cta-final-btns{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:56px;}
+  .contact-grid{
+    display:grid;grid-template-columns:1fr;gap:20px;
+    border-top:1px solid rgba(255,255,255,0.15);
+    padding-top:40px;
+  }
+  .contact-item{display:flex;gap:16px;align-items:flex-start;}
+  .contact-item .ic{
+    width:44px;height:44px;border-radius:12px;
+    background:rgba(0,229,255,0.12);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .contact-item .ic i{color:var(--accent);width:20px;height:20px;}
+  .contact-item strong{color:var(--background);display:block;font-family:var(--font-heading);font-weight:500;margin-bottom:2px;}
+  .contact-item span{color:rgba(255,255,255,0.6);font-size:0.92rem;}
+
+  /* ===== FOOTER ===== */
+  footer{
+    background:var(--primary);
+    padding:56px 0 28px;
+  }
+  .footer-top{
+    display:flex;flex-direction:column;gap:32px;
+    padding-bottom:36px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+  }
+  .footer-logo{font-family:var(--font-heading);font-weight:900;font-size:1.6rem;color:var(--background);}
+  .footer-logo span{color:var(--accent);}
+  .footer-tag{color:rgba(255,255,255,0.55);max-width:340px;font-size:0.95rem;}
+  .footer-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .footer-cols h4{color:var(--background);font-size:0.95rem;text-transform:uppercase;margin-bottom:16px;letter-spacing:0.04em;}
+  .footer-cols a, .footer-cols li{color:rgba(255,255,255,0.55);font-size:0.92rem;display:block;margin-bottom:12px;transition:color .25s;}
+  .footer-cols a:hover{color:var(--accent);}
+  .footer-social{display:flex;gap:12px;margin-top:8px;}
+  .footer-social a{
+    width:38px;height:38px;border-radius:50%;
+    background:rgba(255,255,255,0.06);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--background);transition:background .3s, color .3s;
+  }
+  .footer-social a:hover{background:var(--accent);color:#04141f;}
+  .footer-bottom{
+    display:flex;flex-direction:column;gap:12px;
+    padding-top:24px;
+    color:rgba(255,255,255,0.4);
+    font-size:0.85rem;
+    text-align:center;
+  }
+
+  .lang-sw{
+    display:inline-flex;align-items:center;gap:5px;
+    font-size:0.8em;
+    color:var(--background);
+    opacity:0.85;
+    padding:8px;
+  }
+  .lang-sw:hover{opacity:1;}
+  .lang-sw svg{color:var(--accent);}
+
+  /* ===== DESKTOP ===== */
+  @media (min-width:768px){
+    nav.desktop-nav{display:block;}
+    .hamburger{display:none;}
+    .nav-cta{display:inline-flex;}
+    .hero-inner{padding:190px 0 100px;}
+    .about-grid{grid-template-columns:1fr 1fr;gap:70px;}
+    .about-media .frame img{height:520px;}
+    .step-row{grid-template-columns:120px 1fr;}
+    .tab-panel{grid-template-columns:1fr 1fr;align-items:center;}
+    .price-grid{grid-template-columns:repeat(3,1fr);}
+    .price-card.featured{transform:scale(1.04);}
+    .price-card.featured:hover{transform:scale(1.04) translateY(-8px);}
+    .contact-grid{grid-template-columns:repeat(3,1fr);}
+    .footer-top{flex-direction:row;justify-content:space-between;}
+    .footer-cols{grid-template-columns:repeat(3,1fr);flex:1;max-width:600px;}
+    .footer-bottom{flex-direction:row;justify-content:space-between;text-align:left;}
+    .scroll-cue{display:flex;}
+  }
+  @media (min-width:1024px){
+    .hero h1{max-width:20ch;}
+  }
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <div class="logo">ขับ<span>เป็น</span></div>
+    <div class="menu-close" id="menuClose"><i data-lucide="x"></i></div>
+  </div>
+  <a href="#about" data-lang-th="เกี่ยวกับเรา" data-lang-en="About Us" class="close-link">เกี่ยวกับเรา</a>
+  <a href="#steps" data-lang-th="ขั้นตอนเรียน" data-lang-en="How It Works" class="close-link">ขั้นตอนเรียน</a>
+  <a href="#curriculum" data-lang-th="หลักสูตร" data-lang-en="Curriculum" class="close-link">หลักสูตร</a>
+  <a href="#pricing" data-lang-th="แพ็กเกจราคา" data-lang-en="Pricing" class="close-link">แพ็กเกจราคา</a>
+  <a href="#faq" data-lang-th="คำถามที่พบบ่อย" data-lang-en="FAQ" class="close-link">คำถามที่พบบ่อย</a>
+  <a href="#contact" data-lang-th="ติดต่อเรา" data-lang-en="Contact" class="close-link">ติดต่อเรา</a>
+  <a href="#pricing" class="btn btn-primary close-link"><span data-lang-th="เริ่มเรียนเลย" data-lang-en="Start Now">เริ่มเรียนเลย</span> <i data-lucide="arrow-right" width="18" height="18"></i></a>
+</div>
+
+<header id="siteHeader">
+  <div class="container navwrap">
+    <div class="logo">ขับ<span>เป็น</span></div>
+    <nav class="desktop-nav">
+      <ul>
+        <li><a href="#about" data-lang-th="เกี่ยวกับเรา" data-lang-en="About">เกี่ยวกับเรา</a></li>
+        <li><a href="#steps" data-lang-th="ขั้นตอนเรียน" data-lang-en="Process">ขั้นตอนเรียน</a></li>
+        <li><a href="#curriculum" data-lang-th="หลักสูตร" data-lang-en="Curriculum">หลักสูตร</a></li>
+        <li><a href="#pricing" data-lang-th="ราคา" data-lang-en="Pricing">ราคา</a></li>
+        <li><a href="#faq" data-lang-th="คำถาม" data-lang-en="FAQ">คำถาม</a></li>
+      </ul>
+    </nav>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div class="lang-sw" style="display:flex;" id="langSwMobile"><i data-lucide="globe" width="14" height="14"></i><span class="lang-sw__label">TH</span></div>
+      <a href="#pricing" class="btn btn-primary nav-cta"><span data-lang-th="เริ่มเรียนเลย" data-lang-en="Start Now">เริ่มเรียนเลย</span></a>
+      <div class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-media">
+    <img src="https://images.unsplash.com/photo-1554103577-c0d26e9b90e0?w=1600&h=1200&fit=crop" alt="ถนนไฮเวย์ยามค่ำคืนมุมมองกล้องหน้ารถ">
+  </div>
+  <div class="hud-lines"></div>
+  <div class="container hero-inner">
+    <div class="hero-tag"><i data-lucide="radar" width="15" height="15"></i><span data-lang-th="ระบบเรียนขับรถออนไลน์เจนใหม่" data-lang-en="Next-Gen Online Driving System">ระบบเรียนขับรถออนไลน์เจนใหม่</span></div>
+    <h1 data-lang-th='ขับเป็น<br>มั่นใจ<em>ทุกเส้นทาง</em>' data-lang-en='DRIVE WITH<br><em>FULL CONFIDENCE</em>'>ขับเป็น<br>มั่นใจ<em>ทุกเส้นทาง</em></h1>
+    <p class="sub" data-lang-th="หลักสูตรออนไลน์ตั้งแต่ปูพื้นฐานจนขับได้จริง สอนโดยครูมืออาชีพ ออกแบบมาให้มือใหม่ขับได้อย่างปลอดภัยในทุกสภาพถนน" data-lang-en="A complete online course from zero to real-road confidence — taught by professional instructors, built for beginners to drive safely in any condition.">หลักสูตรออนไลน์ตั้งแต่ปูพื้นฐานจนขับได้จริง สอนโดยครูมืออาชีพ ออกแบบมาให้มือใหม่ขับได้อย่างปลอดภัยในทุกสภาพถนน</p>
+    <div class="hero-ctas">
+      <a href="#pricing" class="btn btn-primary"><span data-lang-th="สมัครเรียนวันนี้" data-lang-en="Enroll Today">สมัครเรียนวันนี้</span><i data-lucide="arrow-up-right" width="18" height="18"></i></a>
+      <a href="#curriculum" class="btn btn-outline"><i data-lucide="play" width="18" height="18"></i><span data-lang-th="ดูหลักสูตร" data-lang-en="View Curriculum">ดูหลักสูตร</span></a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="num">12<span>,400+</span></div><div class="label" data-lang-th="ผู้เรียนสำเร็จ" data-lang-en="Graduates">ผู้เรียนสำเร็จ</div></div>
+      <div class="stat"><div class="num">98<span>%</span></div><div class="label" data-lang-th="สอบผ่านรอบเดียว" data-lang-en="Pass First Try">สอบผ่านรอบเดียว</div></div>
+      <div class="stat"><div class="num">4.9<span>/5</span></div><div class="label" data-lang-th="คะแนนรีวิว" data-lang-en="Avg Rating">คะแนนรีวิว</div></div>
+    </div>
+  </div>
+  <div class="scroll-cue"><span data-lang-th="เลื่อนลง" data-lang-en="Scroll">เลื่อนลง</span></div>
+</section>
+
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span><i data-lucide="shield-check"></i><span data-lang-th="ขับปลอดภัย" data-lang-en="Drive Safely">ขับปลอดภัย</span></span>
+    <span><i data-lucide="gauge"></i><span data-lang-th="มั่นใจทุกความเร็ว" data-lang-en="Confident at Any Speed">มั่นใจทุกความเร็ว</span></span>
+    <span><i data-lucide="map"></i><span data-lang-th="ทุกเส้นทาง" data-lang-en="Every Road">ทุกเส้นทาง</span></span>
+    <span><i data-lucide="award"></i><span data-lang-th="ครูมืออาชีพ" data-lang-en="Pro Instructors">ครูมืออาชีพ</span></span>
+    <span><i data-lucide="shield-check"></i><span data-lang-th="ขับปลอดภัย" data-lang-en="Drive Safely">ขับปลอดภัย</span></span>
+    <span><i data-lucide="gauge"></i><span data-lang-th="มั่นใจทุกความเร็ว" data-lang-en="Confident at Any Speed">มั่นใจทุกความเร็ว</span></span>
+    <span><i data-lucide="map"></i><span data-lang-th="ทุกเส้นทาง" data-lang-en="Every Road">ทุกเส้นทาง</span></span>
+    <span><i data-lucide="award"></i><span data-lang-th="ครูมืออาชีพ" data-lang-en="Pro Instructors">ครูมืออาชีพ</span></span>
+  </div>
+</div>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div class="about-media reveal">
+      <div class="frame">
+        <img src="https://images.unsplash.com/photo-1524114051012-0a2aa8dae4e1?w=900&h=750&fit=crop" alt="มือจับพวงมาลัยรถขณะขับ">
+      </div>
+      <div class="badge">
+        <i data-lucide="shield-check"></i>
+        <div>
+          <strong data-lang-th="มาตรฐานความปลอดภัย" data-lang-en="Safety Certified">มาตรฐานความปลอดภัย</strong>
+          <small data-lang-th="รับรองโดยผู้เชี่ยวชาญ" data-lang-en="Verified by experts">รับรองโดยผู้เชี่ยวชาญ</small>
+        </div>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div class="eyebrow" data-lang-th="เกี่ยวกับขับเป็น" data-lang-en="About Kubpen">เกี่ยวกับขับเป็น</div>
+      <h2 data-lang-th="ปลุกความมั่นใจ<br>หลังพวงมาลัยของคุณ" data-lang-en="Unlock the Confidence<br>Behind Every Wheel">ปลุกความมั่นใจ<br>หลังพวงมาลัยของคุณ</h2>
+      <p data-lang-th="ขับเป็น คือโรงเรียนสอนขับรถออนไลน์ที่ออกแบบมาสำหรับผู้เริ่มต้นโดยเฉพาะ เราเชื่อว่าการขับรถที่ดีเริ่มจากความเข้าใจ ไม่ใช่แค่ความจำ หลักสูตรของเราผสานทฤษฎี วิดีโอจำลองสถานการณ์จริง และการฝึกฝนแบบตัวต่อตัวกับครูผู้สอนที่ผ่านการรับรอง" data-lang-en="Kubpen is an online driving school built specifically for beginners. We believe great driving starts with understanding, not memorizing. Our courses blend theory, real-scenario simulation videos, and one-on-one practice with certified instructors.">ขับเป็น คือโรงเรียนสอนขับรถออนไลน์ที่ออกแบบมาสำหรับผู้เริ่มต้นโดยเฉพาะ เราเชื่อว่าการขับรถที่ดีเริ่มจากความเข้าใจ ไม่ใช่แค่ความจำ หลักสูตรของเราผสานทฤษฎี วิดีโอจำลองสถานการณ์จริง และการฝึกฝนแบบตัวต่อตัวกับครูผู้สอนที่ผ่านการรับรอง</p>
+      <div class="about-points">
+        <div class="pt">
+          <div class="pt-ic"><i data-lucide="video"></i></div>
+          <div>
+            <strong data-lang-th="เรียนสดผ่านวิดีโอคอล" data-lang-en="Live Video Coaching">เรียนสดผ่านวิดีโอคอล</strong>
+            <p data-lang-th="พูดคุยกับครูแบบเรียลไทม์ พร้อมวิเคราะห์ท่าทางการขับ" data-lang-en="Real-time coaching sessions with driving posture analysis">พูดคุยกับครูแบบเรียลไทม์ พร้อมวิเคราะห์ท่าทางการขับ</p>
+          </div>
+        </div>
+        <div class="pt">
+          <div class="pt-ic"><i data-lucide="brain-circuit"></i></div>
+          <div>
+            <strong data-lang-th="จำลองสถานการณ์จริง" data-lang-en="Real Scenario Simulation">จำลองสถานการณ์จริง</strong>
+            <p data-lang-th="ฝึกตัดสินใจกับสถานการณ์ถนนจริงในรูปแบบวิดีโอ 360°" data-lang-en="Practice decision-making with 360° real-road video scenarios">ฝึกตัดสินใจกับสถานการณ์ถนนจริงในรูปแบบวิดีโอ 360°</p>
+          </div>
+        </div>
+        <div class="pt">
+          <div class="pt-ic"><i data-lucide="badge-check"></i></div>
+          <div>
+            <strong data-lang-th="รับใบเซอร์ทิฟิเคต" data-lang-en="Certified Completion">รับใบเซอร์ทิฟิเคต</strong>
+            <p data-lang-th="ใบรับรองผ่านหลักสูตรที่ใช้ยื่นสอบใบขับขี่ได้จริง" data-lang-en="A completion certificate accepted for your license test">ใบรับรองผ่านหลักสูตรที่ใช้ยื่นสอบใบขับขี่ได้จริง</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STEPS ===== -->
+<section class="steps" id="steps">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow" data-lang-th="ขั้นตอนการเรียน" data-lang-en="How It Works">ขั้นตอนการเรียน</div>
+      <h2 data-lang-th="จากศูนย์ สู่ถนนจริง<br>ใน 4 ขั้นตอน" data-lang-en="From Zero to Road-Ready<br>in 4 Steps">จากศูนย์ สู่ถนนจริง<br>ใน 4 ขั้นตอน</h2>
+      <p data-lang-th="ระบบการเรียนที่ออกแบบให้เข้าใจง่าย เห็นความก้าวหน้าได้ทุกสัปดาห์" data-lang-en="A learning system designed to be easy to follow, with visible progress every week">ระบบการเรียนที่ออกแบบให้เข้าใจง่าย เห็นความก้าวหน้าได้ทุกสัปดาห์</p>
+    </div>
+    <div class="step-list">
+      <div class="step-row reveal">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h3 data-lang-th="ประเมินพื้นฐาน" data-lang-en="Baseline Assessment">ประเมินพื้นฐาน</h3>
+          <p data-lang-th="ทำแบบทดสอบออนไลน์เพื่อประเมินระดับความรู้และความมั่นใจเบื้องต้น ก่อนจัดแผนการเรียนที่เหมาะกับคุณโดยเฉพาะ" data-lang-en="Take an online assessment to gauge your current knowledge and confidence level before we build your personalized plan.">ทำแบบทดสอบออนไลน์เพื่อประเมินระดับความรู้และความมั่นใจเบื้องต้น ก่อนจัดแผนการเรียนที่เหมาะกับคุณโดยเฉพาะ</p>
+        </div>
+      </div>
+      <div class="step-row reveal">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h3 data-lang-th="เรียนทฤษฎีเชิงลึก" data-lang-en="Deep Theory Modules">เรียนทฤษฎีเชิงลึก</h3>
+          <p data-lang-th="วิดีโอบทเรียนสั้น กระชับ เข้าใจง่าย ครอบคลุมกฎจราจร ป้ายสัญญาณ และหลักการขับปลอดภัย" data-lang-en="Short, digestible video lessons covering traffic law, road signs, and safe-driving principles.">วิดีโอบทเรียนสั้น กระชับ เข้าใจง่าย ครอบคลุมกฎจราจร ป้ายสัญญาณ และหลักการขับปลอดภัย</p>
+        </div>
+      </div>
+      <div class="step-row reveal">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h3 data-lang-th="ฝึกกับครูตัวต่อตัว" data-lang-en="1-on-1 Practice Coaching">ฝึกกับครูตัวต่อตัว</h3>
+          <p data-lang-th="วิดีโอคอลกับครูผู้สอนเพื่อฝึกการตัดสินใจ วิเคราะห์ท่าทาง และแก้ไขจุดที่ยังไม่มั่นใจ" data-lang-en="Live video sessions with your instructor to build decision-making, analyze posture, and fix weak spots.">วิดีโอคอลกับครูผู้สอนเพื่อฝึกการตัดสินใจ วิเคราะห์ท่าทาง และแก้ไขจุดที่ยังไม่มั่นใจ</p>
+        </div>
+      </div>
+      <div class="step-row reveal">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <h3 data-lang-th="สอบและรับใบเซอร์" data-lang-en="Final Test & Certificate">สอบและรับใบเซอร์</h3>
+          <p data-lang-th="ทดสอบความพร้อมรอบสุดท้ายก่อนรับใบรับรอง พร้อมยื่นสอบใบขับขี่ได้ทันที" data-lang-en="Final readiness test before receiving your certificate — ready to submit for your driving license exam.">ทดสอบความพร้อมรอบสุดท้ายก่อนรับใบรับรอง พร้อมยื่นสอบใบขับขี่ได้ทันที</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CURRICULUM TABS ===== -->
+<section class="curriculum" id="curriculum">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow" data-lang-th="หลักสูตรของเรา" data-lang-en="Our Curriculum">หลักสูตรของเรา</div>
+      <h2 data-lang-th="เลือกเรียนตามระดับ<br>ที่ใช่สำหรับคุณ" data-lang-en="Pick the Track<br>That Fits You">เลือกเรียนตามระดับ<br>ที่ใช่สำหรับคุณ</h2>
+      <p data-lang-th="ไม่ว่าคุณจะยังไม่เคยจับพวงมาลัย หรือขับเป็นแล้วแต่อยากเสริมความมั่นใจ เรามีคอร์สให้เลือก" data-lang-en="Whether you've never touched a wheel or just want to boost your confidence, we have a course for you.">ไม่ว่าคุณจะยังไม่เคยจับพวงมาลัย หรือขับเป็นแล้วแต่อยากเสริมความมั่นใจ เรามีคอร์สให้เลือก</p>
+    </div>
+    <div class="tabs-nav reveal">
+      <button class="tab-btn active" data-tab="1" data-lang-th="มือใหม่หัดขับ" data-lang-en="Absolute Beginner">มือใหม่หัดขับ</button>
+      <button class="tab-btn" data-tab="2" data-lang-th="ขับในเมือง" data-lang-en="City Driving">ขับในเมือง</button>
+      <button class="tab-btn" data-tab="3" data-lang-th="ขับทางไกล" data-lang-en="Highway & Long Trip">ขับทางไกล</button>
+    </div>
+    <div class="tab-panels reveal">
+      <div class="tab-panel active" id="panel-1">
+        <img src="https://images.unsplash.com/photo-1527593167147-e9c94a5883e6?w=700&h=560&fit=crop" alt="ผู้เรียนมือใหม่กำลังฝึกขับรถ">
+        <div class="tab-info">
+          <h3 data-lang-th="มือใหม่หัดขับ" data-lang-en="Absolute Beginner">มือใหม่หัดขับ</h3>
+          <p data-lang-th="ปูพื้นฐานตั้งแต่การนั่ง ปรับกระจก คันเร่ง เบรก ไปจนถึงการออกตัวและจอดรถอย่างมั่นใจ" data-lang-en="Foundations from seating position, mirror adjustment, pedals, to confident starts and parking.">ปูพื้นฐานตั้งแต่การนั่ง ปรับกระจก คันเร่ง เบรก ไปจนถึงการออกตัวและจอดรถอย่างมั่นใจ</p>
+          <ul>
+            <li><i data-lucide="check-circle-2"></i><span data-lang-th="พื้นฐานควบคุมรถ 8 บท" data-lang-en="8 core vehicle-control lessons">พื้นฐานควบคุมรถ 8 บท</span></li>
+            <li><i data-lucide="check-circle-2"></i><span data-lang-th="ฝึกจอดในที่แคบ" data-lang-en="Tight-space parking practice">ฝึกจอดในที่แคบ</span></li>
+            <li><i data-lucide="check-circle-2"></i><span data-lang-th="ครูส่วนตัว 6 ชั่วโมง" data-lang-en="6 hours 1-on-1 coaching">ครูส่วนตัว 6 ชั่วโมง</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="tab-panel" id="panel-2">
+        <img src="https://images.unsplash.com/photo-1516862523118-a3724eb136d7?w=700&h=560&fit=crop" alt="ขับรถในเมืองช่วงกลางวัน">
+        <div class="tab-info">
+          <h3 data-lang-th="ขับในเมือง" data-lang-en="City Driving">ขับในเมือง</h3>
+          <p data-lang-th="ฝึกขับท่ามกลางการจราจรหนาแน่น สี่แยก วงเวียน และสถานการณ์เฉพาะหน้าในเมือง" data-lang-en="Practice navigating heavy traffic, intersections, roundabouts, and urban split-second decisions.">ฝึกขับท่ามกลางการจราจรหนาแน่น สี่แยก วงเวียน และสถานการณ์เฉพาะหน้าในเมือง</p>
+          <ul>
+            <li><i data-lucide="check-circle-2"></i><span data-lang-th="จำลองสี่แยกเสมือนจริง" data-lang-en="Realistic intersection simulation">จำลองสี่แยกเสมือนจริง</span></li>
+            <li><i data-lucide="check-circle-2"></i><span data-lang-th="เทคนิคเปลี่ยนเลนปลอดภัย" data-lang-en="Safe lane-change techniques">เทคนิคเปลี่ยนเลนปลอดภัย</span></li>
+            <li><i data-lucide="check-circle-2"></i><span data-lang-th="ครูส่วนตัว 8 ชั่วโมง" data-lang-en="8 hours 1-on-1 coaching">ครูส่วนตัว 8 ชั่วโมง</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="tab-panel" id="panel-3">
+        <img src="https://images.unsplash.com/photo-1517026575980-3e1e2dedeab4?w=700&h=560&fit=crop" alt="มาตรวัดความเร็วขณะขับทางไกล">
+        <div class="tab-info">
+          <h3 data-lang-th="ขับทางไกล" data-lang-en="Highway & Long Trip">ขับทางไกล</h3>
+          <p data-lang-th="เทคนิคขับความเร็วสูง การควบคุมสมาธิระยะยาว และรับมือสภาพอากาศแปรปรวน" data-lang-en="High-speed control techniques, long-distance focus management, and handling changing weather.">เทคนิคขับความเร็วสูง การควบคุมสมาธิระยะยาว และรับมือสภาพอากาศแปรปรวน</p>
+          <ul>
+            <li><i data-lucide="check-circle-2"></i><span data-lang-th="ฝึกขับกลางคืน/ฝนตก" data-lang-en="Night & rain driving drills">ฝึกขับกลางคืน/ฝนตก</span></li>
+            <li><i data-lucide="check-circle-2"></i><span data-lang-th="วางแผนเส้นทางระยะไกล" data-lang-en="Long-route trip planning">วางแผนเส้นทางระยะไกล</span></li>
+            <li><i data-lucide="check-circle-2"></i><span data-lang-th="ครูส่วนตัว 10 ชั่วโมง" data-lang-en="10 hours 1-on-1 coaching">ครูส่วนตัว 10 ชั่วโมง</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow" data-lang-th="แพ็กเกจราคา" data-lang-en="Pricing Plans">แพ็กเกจราคา</div>
+      <h2 data-lang-th="ลงทุนกับความมั่นใจ<br>บนถนน" data-lang-en="Invest in Your<br>Confidence on the Road">ลงทุนกับความมั่นใจ<br>บนถนน</h2>
+      <p data-lang-th="เลือกแพ็กเกจที่เหมาะกับเป้าหมายและเวลาของคุณ ยกเลิกหรือเปลี่ยนแผนได้ทุกเมื่อ" data-lang-en="Choose a plan that fits your goals and schedule. Change or cancel anytime.">เลือกแพ็กเกจที่เหมาะกับเป้าหมายและเวลาของคุณ ยกเลิกหรือเปลี่ยนแผนได้ทุกเมื่อ</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card reveal-scale">
+        <h3 data-lang-th="เบสิก" data-lang-en="Basic">เบสิก</h3>
+        <p class="price-desc" data-lang-th="สำหรับผู้เริ่มต้นปูพื้นฐาน" data-lang-en="For beginners building the basics">สำหรับผู้เริ่มต้นปูพื้นฐาน</p>
+        <div class="price-amount">฿2,490<span data-lang-th="/คอร์ส" data-lang-en="/course">/คอร์ส</span></div>
+        <ul>
+          <li><i data-lucide="check"></i><span data-lang-th="วิดีโอทฤษฎี 20 บท" data-lang-en="20 theory video lessons">วิดีโอทฤษฎี 20 บท</span></li>
+          <li><i data-lucide="check"></i><span data-lang-th="แบบทดสอบไม่จำกัด" data-lang-en="Unlimited practice quizzes">แบบทดสอบไม่จำกัด</span></li>
+          <li><i data-lucide="check"></i><span data-lang-th="ครูส่วนตัว 4 ชั่วโมง" data-lang-en="4 hours 1-on-1 coaching">ครูส่วนตัว 4 ชั่วโมง</span></li>
+          <li><i data-lucide="check"></i><span data-lang-th="ใบรับรองเมื่อจบคอร์ส" data-lang-en="Completion certificate">ใบรับรองเมื่อจบคอร์ส</span></li>
+        </ul>
+        <a href="#contact" class="btn btn-outline" style="width:100%;"><span data-lang-th="เลือกแพ็กเกจนี้" data-lang-en="Choose Plan">เลือกแพ็กเกจนี้</span></a>
+      </div>
+      <div class="price-card featured reveal-scale">
+        <div class="price-tag" data-lang-th="ยอดนิยม" data-lang-en="Most Popular">ยอดนิยม</div>
+        <h3 data-lang-th="โปร" data-lang-en="Pro">โปร</h3>
+        <p class="price-desc" data-lang-th="ครบทุกสถานการณ์บนท้องถนน" data-lang-en="Every road scenario, fully covered">ครบทุกสถานการณ์บนท้องถนน</p>
+        <div class="price-amount">฿4,990<span data-lang-th="/คอร์ส" data-lang-en="/course">/คอร์ส</span></div>
+        <ul>
+          <li><i data-lucide="check"></i><span data-lang-th="ทุกอย่างในแพ็กเบสิก" data-lang-en="Everything in Basic">ทุกอย่างในแพ็กเบสิก</span></li>
+          <li><i data-lucide="check"></i><span data-lang-th="จำลองสถานการณ์เมือง 360°" data-lang-en="360° city scenario simulation">จำลองสถานการณ์เมือง 360°</span></li>
+          <li><i data-lucide="check"></i><span data-lang-th="ครูส่วนตัว 10 ชั่วโมง" data-lang-en="10 hours 1-on-1 coaching">ครูส่วนตัว 10 ชั่วโมง</span></li>
+          <li><i data-lucide="check"></i><span data-lang-th="ติวเข้มก่อนสอบจริง" data-lang-en="Pre-exam intensive review">ติวเข้มก่อนสอบจริง</span></li>
+        </ul>
+        <a href="#contact" class="btn btn-primary" style="width:100%;"><span data-lang-th="เลือกแพ็กเกจนี้" data-lang-en="Choose Plan">เลือกแพ็กเกจนี้</span></a>
+      </div>
+      <div class="price-card reveal-scale">
+        <h3 data-lang-th="เอลีท" data-lang-en="Elite">เอลีท</h3>
+        <p class="price-desc" data-lang-th="ดูแลตัวต่อตัวแบบเต็มรูปแบบ" data-lang-en="Full white-glove 1-on-1 care">ดูแลตัวต่อตัวแบบเต็มรูปแบบ</p>
+        <div class="price-amount">฿8,900<span data-lang-th="/คอร์ส" data-lang-en="/course">/คอร์ส</span></div>
+        <ul>
+          <li><i data-lucide="check"></i><span data-lang-th="ทุกอย่างในแพ็กโปร" data-lang-en="Everything in Pro">ทุกอย่างในแพ็กโปร</span></li>
+          <li><i data-lucide="check"></i><span data-lang-th="ฝึกขับทางไกล/กลางคืน" data-lang-en="Highway & night driving drills">ฝึกขับทางไกล/กลางคืน</span></li>
+          <li><i data-lucide="check"></i><span data-lang-th="ครูส่วนตัว 20 ชั่วโมง" data-lang-en="20 hours 1-on-1 coaching">ครูส่วนตัว 20 ชั่วโมง</span></li>
+          <li><i data-lucide="check"></i><span data-lang-th="พี่เลี้ยงติดตามผลตลอดปี" data-lang-en="1-year mentor follow-up">พี่เลี้ยงติดตามผลตลอดปี</span></li>
+        </ul>
+        <a href="#contact" class="btn btn-outline" style="width:100%;color:var(--background);"><span data-lang-th="เลือกแพ็กเกจนี้" data-lang-en="Choose Plan">เลือกแพ็กเกจนี้</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow" data-lang-th="เสียงจากผู้เรียน" data-lang-en="Student Voices">เสียงจากผู้เรียน</div>
+      <h2 data-lang-th="เรื่องจริงจาก<br>คนที่เคยกลัวการขับรถ" data-lang-en="Real Stories from People<br>Who Used to Fear Driving">เรื่องจริงจาก<br>คนที่เคยกลัวการขับรถ</h2>
+    </div>
+    <div class="test-track reveal">
+      <div class="test-card">
+        <div class="test-stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+        <p data-lang-th="กลัวขับรถมาก 3 ปี ไม่กล้าออกถนนใหญ่เลย พอมาเรียนกับขับเป็น ครูใจเย็นมาก อธิบายทีละขั้น ตอนนี้ขับไปทำงานเองได้สบายมาก" data-lang-en="I was terrified of driving for 3 years and never dared to go on main roads. After Kubpen, the instructors were so patient and explained everything step by step. Now I drive to work confidently on my own.">กลัวขับรถมาก 3 ปี ไม่กล้าออกถนนใหญ่เลย พอมาเรียนกับขับเป็น ครูใจเย็นมาก อธิบายทีละขั้น ตอนนี้ขับไปทำงานเองได้สบายมาก</p>
+        <div class="test-person">
+          <img src="https://images.unsplash.com/photo-1582478815754-803ac0d85bef?w=100&h=100&fit=crop" alt="รูปโปรไฟล์ผู้เรียน">
+          <div><strong>นภัสสร ก.</strong><span data-lang-th="พนักงานออฟฟิศ กรุงเทพฯ" data-lang-en="Office worker, Bangkok">พนักงานออฟฟิศ กรุงเทพฯ</span></div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+        <p data-lang-th="ชอบตรงที่เรียนเวลาไหนก็ได้ ไม่ต้องรอคิว วิดีโอจำลองสถานการณ์ทำให้เข้าใจการตัดสินใจบนถนนจริงมากขึ้นเยอะ สอบใบขับขี่ผ่านรอบเดียว" data-lang-en="I loved being able to study anytime without waiting in line. The scenario simulations really improved my real-road decision-making. Passed my license test on the first try.">ชอบตรงที่เรียนเวลาไหนก็ได้ ไม่ต้องรอคิว วิดีโอจำลองสถานการณ์ทำให้เข้าใจการตัดสินใจบนถนนจริงมากขึ้นเยอะ สอบใบขับขี่ผ่านรอบเดียว</p>
+        <div class="test-person">
+          <img src="https://images.unsplash.com/photo-1720501828093-c792c10e3f0b?w=100&h=100&fit=crop" alt="รูปโปรไฟล์ผู้เรียน">
+          <div><strong>ธนกร ว.</strong><span data-lang-th="นักศึกษา เชียงใหม่" data-lang-en="Student, Chiang Mai">นักศึกษา เชียงใหม่</span></div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+        <p data-lang-th="เป็นแม่ลูกสองที่ไม่เคยขับรถเลย คิดว่ายากมาก แต่ครูสอนแบบเข้าใจง่าย ค่อยเป็นค่อยไป ตอนนี้ขับพาลูกไปโรงเรียนเองทุกวันแล้วค่ะ" data-lang-en="As a mother of two who never drove before, I thought it would be too hard. But the instructors made it easy, step by step. Now I drive my kids to school every day.">เป็นแม่ลูกสองที่ไม่เคยขับรถเลย คิดว่ายากมาก แต่ครูสอนแบบเข้าใจง่าย ค่อยเป็นค่อยไป ตอนนี้ขับพาลูกไปโรงเรียนเองทุกวันแล้วค่ะ</p>
+        <div class="test-person">
+          <img src="https://images.unsplash.com/photo-1542305983-c4100e4b8cd2?w=100&h=100&fit=crop" alt="รูปโปรไฟล์ผู้เรียน">
+          <div><strong>อรุณี พ.</strong><span data-lang-th="คุณแม่ นนทบุรี" data-lang-en="Mother, Nonthaburi">คุณแม่ นนทบุรี</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow" data-lang-th="คำถามที่พบบ่อย" data-lang-en="FAQ">คำถามที่พบบ่อย</div>
+      <h2 data-lang-th="ยังสงสัยอยู่ใช่ไหม" data-lang-en="Still Have Questions?">ยังสงสัยอยู่ใช่ไหม</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item open">
+        <div class="faq-q"><span data-lang-th="เรียนออนไลน์แล้วขับจริงได้ไหม" data-lang-en="Can I really learn to drive through an online course?">เรียนออนไลน์แล้วขับจริงได้ไหม</span><i data-lucide="plus" width="20" height="20"></i></div>
+        <div class="faq-a"><p data-lang-th="ได้แน่นอน หลักสูตรของเราผสานทฤษฎีออนไลน์เข้ากับการฝึกจริงผ่านวิดีโอคอลกับครูผู้สอน พร้อมวิดีโอจำลองสถานการณ์ 360° ที่ช่วยฝึกการตัดสินใจก่อนลงถนนจริง" data-lang-en="Absolutely. Our program combines online theory with real practice through live video coaching, plus 360° scenario simulations that train your decision-making before you hit real roads.">ได้แน่นอน หลักสูตรของเราผสานทฤษฎีออนไลน์เข้ากับการฝึกจริงผ่านวิดีโอคอลกับครูผู้สอน พร้อมวิดีโอจำลองสถานการณ์ 360° ที่ช่วยฝึกการตัดสินใจก่อนลงถนนจริง</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span data-lang-th="ใบเซอร์ทิฟิเคตใช้ยื่นสอบใบขับขี่ได้ไหม" data-lang-en="Is the certificate accepted for the license exam?">ใบเซอร์ทิฟิเคตใช้ยื่นสอบใบขับขี่ได้ไหม</span><i data-lucide="plus" width="20" height="20"></i></div>
+        <div class="faq-a"><p data-lang-th="ได้ค่ะ ใบรับรองของเราออกตามมาตรฐานที่กรมการขนส่งทางบกยอมรับ สามารถใช้เป็นเอกสารประกอบการยื่นสอบใบขับขี่ได้ทันที" data-lang-en="Yes, our certificate meets the standard accepted by the Department of Land Transport and can be used directly when applying for your license exam.">ได้ค่ะ ใบรับรองของเราออกตามมาตรฐานที่กรมการขนส่งทางบกยอมรับ สามารถใช้เป็นเอกสารประกอบการยื่นสอบใบขับขี่ได้ทันที</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span data-lang-th="ถ้าไม่มีรถของตัวเองจะฝึกยังไง" data-lang-en="What if I don't own a car to practice with?">ถ้าไม่มีรถของตัวเองจะฝึกยังไง</span><i data-lucide="plus" width="20" height="20"></i></div>
+        <div class="faq-a"><p data-lang-th="เรามีพาร์ทเนอร์รถฝึกหัดพร้อมครูนั่งข้างในราคาพิเศษสำหรับนักเรียนขับเป็น ให้บริการในกรุงเทพฯ และหัวเมืองใหญ่ทั่วประเทศ" data-lang-en="We partner with practice-vehicle providers with an in-car instructor at a special rate for Kubpen students, available in Bangkok and major cities nationwide.">เรามีพาร์ทเนอร์รถฝึกหัดพร้อมครูนั่งข้างในราคาพิเศษสำหรับนักเรียนขับเป็น ให้บริการในกรุงเทพฯ และหัวเมืองใหญ่ทั่วประเทศ</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span data-lang-th="เรียนใช้เวลานานแค่ไหนถึงจบ" data-lang-en="How long does the course take to complete?">เรียนใช้เวลานานแค่ไหนถึงจบ</span><i data-lucide="plus" width="20" height="20"></i></div>
+        <div class="faq-a"><p data-lang-th="เฉลี่ยผู้เรียนใช้เวลา 3-6 สัปดาห์ ขึ้นอยู่กับความถี่ในการฝึกและแพ็กเกจที่เลือก คุณสามารถเรียนตามจังหวะของตัวเองได้อย่างอิสระ" data-lang-en="On average, students complete the course in 3-6 weeks depending on practice frequency and package chosen. You can learn entirely at your own pace.">เฉลี่ยผู้เรียนใช้เวลา 3-6 สัปดาห์ ขึ้นอยู่กับความถี่ในการฝึกและแพ็กเกจที่เลือก คุณสามารถเรียนตามจังหวะของตัวเองได้อย่างอิสระ</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA / CONTACT ===== -->
+<section class="cta-final" id="contact">
+  <div class="hud-lines"></div>
+  <div class="container cta-final-inner reveal">
+    <div class="eyebrow" data-lang-th="พร้อมออกเดินทางหรือยัง" data-lang-en="Ready to Hit the Road?">พร้อมออกเดินทางหรือยัง</div>
+    <h2 data-lang-th="เริ่มต้นขับเป็น<br>ตั้งแต่วันนี้" data-lang-en="Start Driving with<br>Confidence Today">เริ่มต้นขับเป็น<br>ตั้งแต่วันนี้</h2>
+    <p data-lang-th="ทีมงานพร้อมให้คำปรึกษาและช่วยเลือกแพ็กเกจที่เหมาะกับคุณ ทักมาคุยกันได้ทุกช่องทาง" data-lang-en="Our team is ready to advise and help you choose the right package. Reach out on any channel below.">ทีมงานพร้อมให้คำปรึกษาและช่วยเลือกแพ็กเกจที่เหมาะกับคุณ ทักมาคุยกันได้ทุกช่องทาง</p>
+    <div class="cta-final-btns">
+      <a href="#pricing" class="btn btn-primary"><span data-lang-th="ดูแพ็กเกจทั้งหมด" data-lang-en="View All Packages">ดูแพ็กเกจทั้งหมด</span><i data-lucide="arrow-up-right" width="18" height="18"></i></a>
+      <a href="tel:+6621234567" class="btn btn-outline"><i data-lucide="phone" width="18" height="18"></i><span data-lang-th="โทรหาเรา" data-lang-en="Call Us">โทรหาเรา</span></a>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="ic"><i data-lucide="phone-call"></i></div>
+        <div><strong data-lang-th="โทรศัพท์" data-lang-en="Phone">โทรศัพท์</strong><span>02-123-4567</span></div>
+      </div>
+      <div class="contact-item">
+        <div class="ic"><i data-lucide="mail"></i></div>
+        <div><strong data-lang-th="อีเมล" data-lang-en="Email">อีเมล</strong><span>hello@kubpen.co.th</span></div>
+      </div>
+      <div class="contact-item">
+        <div class="ic"><i data-lucide="message-circle"></i></div>
+        <div><strong data-lang-th="ไลน์แชท" data-lang-en="Line Chat">ไลน์แชท</strong><span>@kubpen</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">ขับ<span>เป็น</span></div>
+        <p class="footer-tag" data-lang-th="โรงเรียนสอนขับรถออนไลน์สำหรับผู้เริ่มต้น เน้นความปลอดภัยและความมั่นใจในทุกเส้นทาง" data-lang-en="An online driving school for beginners, focused on safety and confidence on every road.">โรงเรียนสอนขับรถออนไลน์สำหรับผู้เริ่มต้น เน้นความปลอดภัยและความมั่นใจในทุกเส้นทาง</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i data-lucide="facebook" width="17" height="17"></i></a>
+          <a href="#" aria-label="Instagram"><i data-lucide="instagram" width="17" height="17"></i></a>
+          <a href="#" aria-label="Youtube"><i data-lucide="youtube" width="17" height="17"></i></a>
+        </div>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <h4 data-lang-th="เมนู" data-lang-en="Menu">เมนู</h4>
+          <a href="#about" data-lang-th="เกี่ยวกับเรา" data-lang-en="About">เกี่ยวกับเรา</a>
+          <a href="#curriculum" data-lang-th="หลักสูตร" data-lang-en="Curriculum">หลักสูตร</a>
+          <a href="#pricing" data-lang-th="ราคา" data-lang-en="Pricing">ราคา</a>
+        </div>
+        <div>
+          <h4 data-lang-th="สนับสนุน" data-lang-en="Support">สนับสนุน</h4>
+          <a href="#faq" data-lang-th="คำถามที่พบบ่อย" data-lang-en="FAQ">คำถามที่พบบ่อย</a>
+          <a href="#contact" data-lang-th="ติดต่อเรา" data-lang-en="Contact">ติดต่อเรา</a>
+          <a href="#" data-lang-th="นโยบายความเป็นส่วนตัว" data-lang-en="Privacy Policy">นโยบายความเป็นส่วนตัว</a>
+        </div>
+        <div>
+          <h4 data-lang-th="ที่อยู่" data-lang-en="Address">ที่อยู่</h4>
+          <span data-lang-th="123 ถนนสุขุมวิท กรุงเทพฯ 10110" data-lang-en="123 Sukhumvit Rd, Bangkok 10110">123 ถนนสุขุมวิท กรุงเทพฯ 10110</span>
+          <span data-lang-th="เปิดทุกวัน 08:00-20:00" data-lang-en="Open daily 08:00-20:00">เปิดทุกวัน 08:00-20:00</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-lang-th="© 2569 ขับเป็น สงวนลิขสิทธิ์" data-lang-en="© 2026 Kubpen. All rights reserved.">© 2569 ขับเป็น สงวนลิขสิทธิ์</span>
+      <span data-lang-th="ออกแบบด้วยความใส่ใจในกรุงเทพฯ" data-lang-en="Designed with care in Bangkok">ออกแบบด้วยความใส่ใจในกรุงเทพฯ</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // header scroll
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 40){ header.classList.add('scrolled'); }
+    else{ header.classList.remove('scrolled'); }
+  });
+
+  // mobile menu
+  const menu = document.getElementById('mobileMenu');
+  const overlay = document.getElementById('overlay');
+  const hb = document.getElementById('hamburgerBtn');
+  const closeBtn = document.getElementById('menuClose');
+  function openMenu(){ menu.classList.add('open'); overlay.classList.add('show'); }
+  function closeMenu(){ menu.classList.remove('open'); overlay.classList.remove('show'); }
+  hb.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
+  document.querySelectorAll('.close-link').forEach(l => l.addEventListener('click', closeMenu));
+
+  // reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal, .reveal-scale').forEach(el => io.observe(el));
+
+  // tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // faq accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-q').addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if(!isOpen){ item.classList.add('open'); }
+    });
+  });
+
+  lucide.createIcons();
+</script>
+
+<script>
+(function(){var K='site-lang',L=localStorage.getItem(K)||'th';function S(l){L=l;localStorage.setItem(K,l);document.documentElement.lang=l;document.querySelectorAll('[data-lang-th]').forEach(function(e){var t=e.getAttribute('data-lang-'+l);if(t!==null){if(/[<&]/.test(t)){e.innerHTML=t}else{e.textContent=t}}});var lb=document.querySelector('.lang-sw__label');if(lb){lb.textContent=l.toUpperCase()}}var sw=document.querySelector('.lang-sw');if(sw){sw.addEventListener('click',function(){S(L==='th'?'en':'th')});sw.style.cursor='pointer'}if(L!=='th'){S(L)}})();
+</script>
+</body>
+</html>
